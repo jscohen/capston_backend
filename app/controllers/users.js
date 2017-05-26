@@ -68,6 +68,7 @@ const signin = (req, res, next) => {
     .then(user =>
       getToken().then(token => {
         user.token = token
+        console.log(user)
         return user.save()
       }))
     .then(user => {
