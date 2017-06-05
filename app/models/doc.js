@@ -12,6 +12,9 @@ const docSchema = new mongoose.Schema({
   },
   text: {
     type: String
+  },
+  title: {
+    type: String
   }
 })
 
