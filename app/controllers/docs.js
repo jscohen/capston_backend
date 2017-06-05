@@ -10,7 +10,7 @@ const setModel = require('./concerns/set-mongoose-model')
 
 const index = (req, res, next) => {
   const userId = req.user.id.toString()
-
+  console.log(req.user)
   Doc.find({_owner: userId})
     .then(docs => res.json({
       docs: docs.map((e) =>
