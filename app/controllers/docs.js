@@ -52,11 +52,23 @@ const destroy = (req, res, next) => {
     .catch(next)
 }
 
+const translate = (req, res, next) => {
+  const trans = require('scripts/translate')
+  delete req.body._owner
+  Doc.findById(req.body.doc.id)
+  .then(doc => trans.getTranslation(req.body.doc.text, req.body.doc.language))
+  .then(body => body.json({
+    body: body.toJSON({user: req.user})
+  }))
+  .catch(next)
+}
+
 module.exports = controller({
   index,
   show,
   create,
   update,
+  translate,
   destroy
 }, { before: [
   { method: setUser, only: ['index', 'show'] },

@@ -2,8 +2,8 @@
 
 API="http://localhost:4741"
 URL_PATH="/docs"
-TOKEN="zo5PcVSlf3OkEX5gD9BPVMXtLe9gt4iJsuhQpllFh5c=--6PVphv35oILBEwpRbASpuV5hsEcu3E0ZbwjOjfZ9Q4Q="
-ID="593563a78bc3af325eb8f491"
+TOKEN="ne3Uh1wbhi4TNKnnmdAtDFVGH5lrSyAK6ogVJX2TTAg=--hCVhWlwSLyQGXyvUXAS9CtsqsbCQZ4jbHmxnDiQHWPM="
+ID="591de455d9e65d72ad095f38"
 
 curl "${API}${URL_PATH}/${ID}" \
   --include \

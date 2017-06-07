@@ -15,6 +15,9 @@ module.exports = require('lib/wiring/routes')
 .resources('tests', {only: ['index', 'create']})
 .resources('docs')
 
+// transator router
+.patch('/translate/:id', 'docs#translate')
+
 // users of the app have special requirements
 .post('/sign-up', 'users#signup')
 .post('/sign-in', 'users#signin')
