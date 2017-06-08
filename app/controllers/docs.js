@@ -52,17 +52,53 @@ const destroy = (req, res, next) => {
     .catch(next)
 }
 
-const translate = (req, res, next) => {
-  delete req.body._owner
-  Doc.findById(req.body.doc.id)
-  .then(function () {
-    console.log('test')
+const getVal = function (fullURL, callback) {
+  const request = require('request')
+  request(fullURL,
+  function (error, response, body, getVal) {
+    if (error || response.statusCode !== 200) {
+      return error
+    }
+    callback(null, JSON.parse(body))
   })
-    // Doc.update(doc, {$set: {text: result}})
-  .catch(next)
 }
-const trans = require('scripts/translate')
-trans.getTranslation('hello', 'it')
+
+const translate = (req, res, next) => {
+  const uri = 'https://translate.yandex.net/api/v1.5/tr.json/translate?&key='
+  const key = 'trnsl.1.1.20170502T140240Z.e335e8f283001e99.9b5c9ad87ddb4e729013b79f9009d8a6b993602f&lang=en-'
+  const fullURL = uri + key + req.body.doc.language + '&text=' + req.body.doc.text + '&options=1'
+  const id = req.body.doc.id
+
+  getVal(fullURL, function (err, body) {
+    if (err) {
+      console.log(err)
+    } else {
+      const result = body.text[0]
+      console.log('inside translate', result)
+      Doc.findById(id)
+      .then(doc => doc.update({$set: {text: result}}))
+      .then(console.log('inside update'))
+      .then(res.sendStatus(201))
+      return result
+    }
+  })
+}
+
+  // delete req.body._owner
+  // console.log(req.body.doc.text, '', req.body.doc.language)
+  // const result = trans.getTranslation(req.body.doc.text, req.body.doc.language)
+  // console.log('inside translate', result)
+  // updateDoc(result, req.body.doc.id)
+
+const updateDoc = function (result, id) {
+  Doc.findById(id)
+  .then(doc => {
+    doc.update({$set: {text: result}})
+  .then(doc => console.log('inside update', doc))
+  .catch(console.log('error'))
+  })
+}
+
 module.exports = controller({
   index,
   show,

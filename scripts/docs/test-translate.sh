@@ -13,7 +13,7 @@ curl "${API}${URL_PATH}/${ID}" \
   --data '{
     "doc": {
       "id": "59386213091f963a4ba0cd14",
-      "text": "testing",
+      "text": "test",
       "language": "it"
     }
   }'
