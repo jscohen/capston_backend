@@ -53,16 +53,16 @@ const destroy = (req, res, next) => {
 }
 
 const translate = (req, res, next) => {
-  const trans = require('scripts/translate')
   delete req.body._owner
   Doc.findById(req.body.doc.id)
-  .then(doc => trans.getTranslation(req.body.doc.text, req.body.doc.language))
-  .then(body => body.json({
-    body: body.toJSON({user: req.user})
-  }))
+  .then(function () {
+    console.log('test')
+  })
+    // Doc.update(doc, {$set: {text: result}})
   .catch(next)
 }
-
+const trans = require('scripts/translate')
+trans.getTranslation('hello', 'it')
 module.exports = controller({
   index,
   show,
