@@ -53,12 +53,14 @@ const destroy = (req, res, next) => {
 }
 
 const getVal = function (fullURL, callback) {
+  console.log('inside getVal beginning')
   const request = require('request')
   request(fullURL,
   function (error, response, body, getVal) {
     if (error || response.statusCode !== 200) {
       return error
     }
+    console.log('inside getVal', body)
     callback(null, JSON.parse(body))
   })
 }
@@ -69,6 +71,7 @@ const translate = (req, res, next) => {
   const fullURL = uri + key + req.body.doc.fromLanguage + '-' + req.body.doc.toLanguage + '&text=' + req.body.doc.text + '&options=1'
   const id = req.body.doc.id
 
+  console.log("inside translate backend")
   getVal(fullURL, function (err, body) {
     if (err) {
       console.log(err)
