@@ -16,7 +16,7 @@ const docSchema = new mongoose.Schema({
   title: {
     type: String
   },
-  translation: {
+  language: {
     type: String
   }
 })

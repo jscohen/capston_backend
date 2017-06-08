@@ -2,7 +2,7 @@
 
 API="http://localhost:4741"
 URL_PATH="/translate"
-TOKEN="TQeUYQpAr0p79D+0add52peNzW6v+EZvLv3btyp1FlU=--NHeCDHtQ97OhI6FLHfiEW/MbOVMfEg71D3d7MVhV1Us="
+TOKEN="F+hEiYL9CCukUaRXYOwgqGLnawn9NmUKiklE2vtSxqw=--OIBCMj6ACPAKpGNfwx41jnWe644fRbtLM1qRJNd/L00="
 ID="59386213091f963a4ba0cd14"
 
 curl "${API}${URL_PATH}/${ID}" \

@@ -65,8 +65,8 @@ const getVal = function (fullURL, callback) {
 
 const translate = (req, res, next) => {
   const uri = 'https://translate.yandex.net/api/v1.5/tr.json/translate?&key='
-  const key = 'trnsl.1.1.20170502T140240Z.e335e8f283001e99.9b5c9ad87ddb4e729013b79f9009d8a6b993602f&lang=en-'
-  const fullURL = uri + key + req.body.doc.language + '&text=' + req.body.doc.text + '&options=1'
+  const key = 'trnsl.1.1.20170502T140240Z.e335e8f283001e99.9b5c9ad87ddb4e729013b79f9009d8a6b993602f&lang='
+  const fullURL = uri + key + req.body.doc.fromLanguage + '-' + req.body.doc.toLanguage + '&text=' + req.body.doc.text + '&options=1'
   const id = req.body.doc.id
 
   getVal(fullURL, function (err, body) {
