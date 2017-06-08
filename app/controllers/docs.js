@@ -10,7 +10,6 @@ const setModel = require('./concerns/set-mongoose-model')
 
 const index = (req, res, next) => {
   const userId = req.user.id.toString()
-  console.log(req.user)
   Doc.find({_owner: userId})
     .then(docs => res.json({
       docs: docs.map((e) =>
@@ -53,14 +52,12 @@ const destroy = (req, res, next) => {
 }
 
 const getVal = function (fullURL, callback) {
-  console.log('inside getVal beginning')
   const request = require('request')
   request(fullURL,
   function (error, response, body, getVal) {
     if (error || response.statusCode !== 200) {
       return error
     }
-    console.log('inside getVal', body)
     callback(null, JSON.parse(body))
   })
 }
@@ -71,34 +68,17 @@ const translate = (req, res, next) => {
   const fullURL = uri + key + req.body.doc.fromLanguage + '-' + req.body.doc.toLanguage + '&text=' + req.body.doc.text + '&options=1'
   const id = req.body.doc.id
 
-  console.log("inside translate backend")
   getVal(fullURL, function (err, body) {
     if (err) {
       console.log(err)
     } else {
       const result = body.text[0]
-      console.log('inside translate', result)
       Doc.findById(id)
       .then(doc => doc.update({$set: {text: result}}))
       .then(console.log('inside update'))
       .then(res.sendStatus(201))
       return result
     }
-  })
-}
-
-  // delete req.body._owner
-  // console.log(req.body.doc.text, '', req.body.doc.language)
-  // const result = trans.getTranslation(req.body.doc.text, req.body.doc.language)
-  // console.log('inside translate', result)
-  // updateDoc(result, req.body.doc.id)
-
-const updateDoc = function (result, id) {
-  Doc.findById(id)
-  .then(doc => {
-    doc.update({$set: {text: result}})
-  .then(doc => console.log('inside update', doc))
-  .catch(console.log('error'))
   })
 }
 

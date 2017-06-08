@@ -11,7 +11,6 @@ const getTranslation = function (text, lang) {
     if (!error && response.statusCode === 200) {
       const result = JSON.parse(body)
       const text = result.text[0]
-      console.log(text)
       return text
     }
     return false
