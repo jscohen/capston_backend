@@ -8,11 +8,6 @@ module.exports = require('lib/wiring/routes')
 .root('root#root')
 
 // standards RESTful routes
-.resources('examples')
-.resources('orders', { only: ['index', 'show', 'create'] })
-.resources('carts')
-.resources('products', { only: ['index', 'show'] })
-.resources('tests', {only: ['index', 'create']})
 .resources('docs')
 
 // transator router
