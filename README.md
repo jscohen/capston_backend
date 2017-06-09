@@ -18,6 +18,13 @@ Writr is a functioning word processor and text translator.
 
 The major functionality aside from the doc resources' RESTful routes is the translation feature.  The translation is a patch request at a custom route /translate/:doc_id.  From that route, expressJS sends an API call to yandex with the API key, text, current language, and translation language and returns a JSON value.  That value is cleaned and put into the text field of the doc using the Mongoose update function.  On the front end, that value is dynamically added to the Ember textarea.
 
+## General Approach
+I attempted to make this a client-focused app and minimize the calls on the back end.  There is only one resource, docs, to contain the document.  On the front end, you can access the New Document view which prompts you to write a document, create it, and then allows you to translate and save.  You can access your docs to edit them as well.  The translation involves selecting the langugae you are translating from and then the language you are translating to.  The translation occurs dynamically, and will update your text immediately.
+
+I originally wanted to make this app a full word processor like Google Docs, but I couldn't find a framework that would work with Ember.  Ember uses its own custom text field components instead of the normal HTML textarea and it is impossible to add CSS to the text inside.  So I abandoned this idea and reused the Yandex translation service from my second project to make the app a text translator.
+
+Because of the flexibility of expressJS (which I prefer to Rails), I was able to focus on Ember on the front end and make changes on the fly, especially when I shifted focus from word processing to translation.  I generated routes and components for each piece of functionality, and worked on building the views and the logic using "the Ember way".  Although Ember is convention over configuration unlike expressJS, I was still able to make the functionality I needed, even if it is sometimes inelegant or not necessarily "the Ember way".  An example of this is the API calls: for the GET request to retrieve a user's documents, I made use of Ember's native features to make the call in the route model and then use a handlebars template to populate each document.  However, I also needed to make other API calls such as translation and updating and I made those in the docs service with custom API requests.  Overall, I got the functionality done that needed to be there although I'm sure there are better ways using Ember's capabilities.
+
 ## API routes
 
 The following API routes are used by Writr:
