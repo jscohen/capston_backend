@@ -3,8 +3,11 @@
 # Links
 
 [Front End Repo](https://github.com/jscohen/capstone_front_end)
+
 [Back End Repo](https://github.com/jscohen/capston_backend)
+
 [Front End Deployment](https://jscohen.github.io/capstone_front_end/)
+
 [API Deployment](https://young-savannah-37906.herokuapp.com/)
 
 # Writr
