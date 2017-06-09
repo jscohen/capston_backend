@@ -48,6 +48,18 @@ Docs:
 Translation:
 1. Translate: A custom route at translate/:doc_id that takes in the doc title, the text, the language you are translating from and the language you are translating into.  The translate function calls the Yandex API and returns the text in the language you are translating into.  Then, using the Mongoose update function it changes the doc's text to the translation.
 
+## Hurdles and Unresolved Issues
+
+I am fairly happy with the final product of the app, but it was not entirely smooth. I originally planned to make a word processor with a Google Docs style interface where the user could edit and style text. I was using standard HTML textarea elements for this. I decided to build the core of the app (i.e. CRUD, authentication, building out routes and components) before working on the interface. When I tried to work with the HTML textarea, I couldn't get it to work and after some researched I discovered Ember actually uses custom components in place of the HTML textarea and input fields and that it was impossible to edit the text in the way that a word processor would need.
+
+I switched focus to add a translation feature, which proved challenging but doable. My primary difficulty was making the actual call to the third party API within an express API route. I created a custom route called translate/:doc_id to do this with a standard javascript function providing the call to the translation API. I had a lot of difficulty making this work, because the process consisted of:
+
+API call to custom translate route
+Using Mongoose findById to get the right doc, which is asynchronous
+Calling a synchronous function with the text and language as paramters to call the Yandex API asynchronously and get the translation
+Using Mongoose update function asynchronously to change the document's text to the result of the translation
+Essentially when I set up this process, nothing ran in the order that I expected it to and it didn't work. I finally settled on a regular function within the translate route that had the URL for the API call and a callback function that updated the doc. Inside that function, I used Node's request module to make the API call and parse the returned JSON into the callback function passed into it. In the callback, I updated the Doc's text. See the docs.js controller on the back-end repo for code.
+
 ## Technologies
 
 For the API, I used expressJS in the same way as we did in the team project.  Aside from the custom translate route, all routes are RESTful.  I did not make any special use of express other than managing the translation.
